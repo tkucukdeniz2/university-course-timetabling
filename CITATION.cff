@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "University course timetabling with CP-SAT"
+version: 1.0.0
+date-released: 2026-11-20
+license: MIT
+repository-code: "https://github.com/tkucukdeniz2/university-course-timetabling"
+authors:
+  - family-names: "Küçükdeniz"
+    given-names: "Tarık"
+    orcid: "https://orcid.org/0000-0002-6670-1809"
+    affiliation: "İstanbul University-Cerrahpaşa, Department of Industrial Engineering"
+abstract: >-
+  A configurable curriculum-based course timetabling system built on Google OR-Tools
+  CP-SAT. It schedules theory, application and lab blocks of undergraduate and
+  graduate courses, assigns classrooms, a computer lab and faculty-granted
+  amphitheatres, respects instructor availability and fixed faculty sessions, and
+  maximises free days for students and instructors. Output is a formatted Excel
+  workbook and a CSV file.
+keywords:
+  - course timetabling
+  - constraint programming
+  - CP-SAT
+  - OR-Tools
+  - scheduling
+  - operations research

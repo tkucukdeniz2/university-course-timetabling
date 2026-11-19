@@ -1,0 +1,131 @@
+# Example configuration (fall term, GÜZ) for an industrial engineering department.
+# Course names and rooms follow a real curriculum; instructors are anonymised codes.
+# Every key is documented in README.md. Run:  python -m src.main
+room_priority:
+  lisans: [D-731, D-733, D-724]
+  yl: [Lisansüstü Sınıfı, D-724, D-733, TUSAŞ Lab]
+  dr: [D-724, D-733, Lisansüstü Sınıfı, TUSAŞ Lab]
+room_pools:
+  lisans: [D-724, D-731, D-733]
+  grad: [Lisansüstü Sınıfı, D-724, D-733, TUSAŞ Lab]
+lab_room: End.Müh. Bilg. Lab.
+amfi_room: Amfi
+max_parallel_electives: 2
+amfi_courses:
+- Multivariate Functions and Applications
+- Operations Research I
+- Production Planning and Control
+- Facilities Planning
+- Endüstri Mühendisliği İçin Muhasebe
+- Quality Engineering
+lab_courses:
+- Bilgisayar Programlama
+- Veri Madenciliği ve Bilgi Keşfi
+- Systems Simulation
+- Sezgisel Optimizasyon
+- Veriye Dayalı Karar Verme
+lab_only_courses:
+- Sezgisel Optimizasyon
+- Bilgisayar Programlama
+- Mühendislikte Veri Bilimi Ve Uygulamaları
+dual_room_courses:
+- Systems Simulation
+single_block_courses:
+- Bilgisayar Programlama
+same_day_courses:
+- [Production Planning and Control, Systems Simulation]
+different_day_courses:
+- Facilities Planning
+groups:
+  İmalatta Endüstri Mühendisliği Uygulamaları: [C, 1]
+  Malzeme Bilimi: [C, 1]
+  Mühendislik Mekaniği: [C, 1]
+  Termodinamik: [C, 1]
+  Kalite Yönetimi Araçları: [C, 1]
+  Technology and R&D Management: [D, 3]
+  Elektronik Ticaret ve Pazarlama: [D, 3]
+  Lean Production: [D, 3]
+  İşletme Finansı: [D, 3]
+  Veri Madenciliği ve Bilgi Keşfi: [D, 3]
+  Yeşil Endüstri ve Döngüsel Ekonomi: [D, 3]
+  Tümevarım Yöntemlerine Giriş: [F, 3]
+  Manufacturing Systems Modeling and Analysis: [F, 3]
+  Sezgisel Optimizasyon: [F, 3]
+  Endüstri Mühendisliğinde Seçilmiş Konular II: [F, 3]
+  Finansal Piyasalar ve Yatırım: [F, 3]
+  Probability Modeling: [F, 3]
+  Endüstri 4.0 ve Dijital Dönüşüm: [G, 1]
+  Veriye Dayalı Karar Verme: [G, 1]
+weights:
+  free_day: 1000
+  instructor_day: 500
+  pair_penalty: 5
+  student_gap: 10
+  avoid_first: 25
+  cohort_day_pref: 300
+  room_pref: 2
+  monday_late_start: 0
+blocked_slots:
+- {day: Cuma, periods: [6]}
+require_free_day: true
+forbid_first_period: true
+allow_first_courses:
+- Endüstri Mühendisliği İçin Muhasebe
+amfi_assignments:
+  Facilities Planning:U: K-B01
+  Endüstri Mühendisliği İçin Muhasebe: K-B02
+  Quality Engineering: K-B01
+  Operations Research I: K-B04
+  Operations Research I:U: K-B01
+  Production Planning and Control: K-B04
+  Multivariate Functions and Applications: K-B03
+latest_period: 10
+cohort_days: {}
+cohort_day_pref:
+  Lisans-5: [Pazartesi, Salı, Çarşamba]
+course_rooms:
+  Olasılık Teorisi ve İstatistiğe Giriş: [D-731]
+  Endüstri Mühendisliğine Giriş: [D-731]
+course_days:
+  Olasılık Teorisi ve İstatistiğe Giriş: [Salı]
+  İşletme Finansı: [Salı]
+  Tümevarım Yöntemlerine Giriş: [Salı]
+split_tu:
+- Öğr. Üyesi 08
+- Öğr. Üyesi 09
+instructor_overrides:
+  Elektronik Ticaret ve Pazarlama: Öğr. Üyesi 26
+  İmalatta Endüstri Mühendisliği Uygulamaları: Öğr. Üyesi 26
+  Sezgisel Optimizasyon: Öğr. Üyesi 06
+uygulama_assistants:
+  Operations Research I: OR I Asistanı
+hide_instructors:
+- Öğr. Üyesi 26
+- Öğr. Üyesi 06
+fixed_placements:
+- {course: Endüstri Mühendisliğine Giriş, kind: T, day: Çarşamba, period: 8}
+- {course: Technical English I, kind: T, day: Cuma, period: 4}
+- {course: Bilgisayar Programlama, kind: TUL, day: Perşembe, period: 3}
+excluded_courses:
+- Probability Modeling
+- Workforce Planning
+- Ajan Tabanlı Modelleme ve Simülasyon
+fixed_session_cohorts: {}
+ctype_overrides:
+  İleri Matematik Programlama: S
+instructor_sheets:
+- Öğr. Üyesi 16
+- Öğr. Üyesi 24
+- Öğr. Üyesi 13
+- Öğr. Üyesi 10
+- Öğr. Üyesi 09
+- Öğr. Üyesi 15
+- Öğr. Üyesi 25
+- Öğr. Üyesi 12
+- Öğr. Üyesi 07
+- Öğr. Üyesi 21
+- Öğr. Üyesi 27
+- Öğr. Üyesi 19
+watermark: TASLAK
+unlock_evening: false
+en_medium: []

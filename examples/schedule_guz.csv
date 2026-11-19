@@ -1,0 +1,49 @@
+course,code,level,semester,kind,length,day,period,room,instructor,group,en_medium
+Mühendislikte Bulanık Küme Kavramı Ve Uygulamaları,ETMU9033,DR,1,T,3,Pazartesi,P2,D-724,Öğr. Üyesi 12,,0
+Mühendislikte Veri Bilimi Ve Uygulamaları,ETMU9042,DR,1,T,3,Pazartesi,P5,End.Müh. Bilg. Lab.,Öğr. Üyesi 10,,0
+İş Sıralama Ve Çizelgeleme,ETMU9014,DR,1,T,3,Pazartesi,P5,D-724,Öğr. Üyesi 24,,0
+Sistemlerin Stokastik Modellenmesi,ETMU9044,DR,1,T,3,Pazartesi,P8,D-724,Öğr. Üyesi 24,,0
+Endüstri Mühendisliğinde Yapay Zeka Ve Uygulamaları,ETMU9038,DR,1,T,3,Çarşamba,P2,D-724,Öğr. Üyesi 16,,0
+Eniyileme Kuramı,ETMU9039,DR,1,T,3,Çarşamba,P2,Lisansüstü Sınıfı,Öğr. Üyesi 13,,0
+Üretim ve Hizmet Yönetiminde Davranışsal Analiz ve Modelleme,,DR,1,T,3,Çarşamba,P5,D-724,Öğr. Üyesi 19,,0
+Tesis Yeri Seçimi Ve Tasarımı,ETMU9036,DR,1,T,3,Çarşamba,P5,Lisansüstü Sınıfı,Öğr. Üyesi 09,,0
+Endüstri Mühendisliğine Giriş,ENMU1003,Lisans,1,T,2,Çarşamba,P8,D-731,Öğr. Üyesi 09,,0
+Technical English I,ENMU1065,Lisans,1,T,2,Cuma,P4,D-731,Öğr. Üyesi 21,,0
+Olasılık Teorisi ve İstatistiğe Giriş,ENMU2006,Lisans,3,T,3,Salı,P2,D-731,Öğr. Üyesi 25,,0
+İmalatta Endüstri Mühendisliği Uygulamaları,ENMU2053,Lisans,3,T,3,Salı,P5,D-724,Öğr. Üyesi 26,C,0
+Mühendislik Mekaniği,ENMU2008,Lisans,3,T,3,Salı,P5,D-733,Öğr. Üyesi 04,C,0
+Termodinamik,ENMU2009,Lisans,3,T,3,Salı,P8,D-731,Öğr. Üyesi 20,C,0
+Bilgisayar Programlama,ENMU2052,Lisans,3,TUL,4,Perşembe,P3,End.Müh. Bilg. Lab.,Öğr. Üyesi 07,,0
+Malzeme Bilimi,ENMU3022,Lisans,3,T,3,Perşembe,P7,D-733,Öğr. Üyesi 14,C,0
+Kalite Yönetimi Araçları,,Lisans,3,T,3,Perşembe,P7,D-731,Öğr. Üyesi 15,C,0
+Endüstri Mühendisliği İçin Muhasebe,ENMU2007,Lisans,3,T,3,Cuma,P1,K-B02,Öğr. Üyesi 23,,0
+Ekonomi,ENMU2051,Lisans,3,T,2,Cuma,P4,D-733,Öğr. Üyesi 01,,0
+Multivariate Functions and Applications,ENMU2050,Lisans,3,TU,4,Cuma,P7,K-B03,Öğr. Üyesi 21,,0
+Veri Madenciliği ve Bilgi Keşfi,ENMU4058,Lisans,5,T,3,Pazartesi,P2,D-733,Öğr. Üyesi 27,D,0
+Facilities Planning,ENMU3064,Lisans,5,T,2,Pazartesi,P5,Amfi,Öğr. Üyesi 08,,0
+Quality Engineering,ENMU3065,Lisans,5,TU,4,Pazartesi,P7,K-B01,Öğr. Üyesi 15,,0
+Operations Research I,ENMU3055,Lisans,5,U,2,Salı,P4,K-B01,OR I Asistanı,,0
+Facilities Planning,ENMU3064,Lisans,5,U,2,Salı,P6,K-B01,Öğr. Üyesi 08,,0
+Elektronik Ticaret ve Pazarlama,ENMU3067,Lisans,5,T,3,Salı,P8,D-733,Öğr. Üyesi 26,D,0
+İşletme Finansı,ENMU3017,Lisans,5,T,3,Salı,P8,D-724,Öğr. Üyesi 25,D,0
+Operations Research I,ENMU3055,Lisans,5,T,3,Çarşamba,P2,K-B04,Öğr. Üyesi 09,,0
+Lean Production,ENMU4066,Lisans,5,T,3,Çarşamba,P5,D-731,Öğr. Üyesi 13,D,0
+Yeşil Endüstri ve Döngüsel Ekonomi,,Lisans,5,T,3,Çarşamba,P8,D-724,Öğr. Üyesi 22,D,0
+Technology and R&D Management,ENMU3059,Lisans,5,T,3,Çarşamba,P8,D-733,Öğr. Üyesi 19,D,0
+Veriye Dayalı Karar Verme,ENMU4068,Lisans,7,T,3,Pazartesi,P2,D-731,Öğr. Üyesi 10,G,0
+Endüstri 4.0 ve Dijital Dönüşüm,ENMU4069,Lisans,7,T,3,Pazartesi,P5,D-731,Öğr. Üyesi 13,G,0
+Endüstri Mühendisliğinde Seçilmiş Konular II,ENMU4070,Lisans,7,T,3,Pazartesi,P8,D-731,Öğr. Üyesi 27,F,0
+Manufacturing Systems Modeling and Analysis,ENMU4067,Lisans,7,T,3,Pazartesi,P8,D-733,Öğr. Üyesi 12,F,0
+Finansal Piyasalar ve Yatırım,,Lisans,7,T,3,Salı,P2,D-733,Öğr. Üyesi 11,F,0
+Tümevarım Yöntemlerine Giriş,ENMU4055,Lisans,7,T,3,Salı,P5,D-731,Öğr. Üyesi 25,F,0
+Sezgisel Optimizasyon,ENMU4035,Lisans,7,T,3,Salı,P8,End.Müh. Bilg. Lab.,Öğr. Üyesi 06,F,0
+Production Planning and Control,ENMU4063,Lisans,7,TU,4,Cuma,P2,K-B04,Öğr. Üyesi 24,,0
+Systems Simulation,ENMU4065,Lisans,7,TU,4,Cuma,P7,D-731 / End.Müh. Bilg. Lab.,Öğr. Üyesi 15,,0
+İleri İstatistiksel Analiz,ETMU7046,YL,1,T,3,Pazartesi,P2,Lisansüstü Sınıfı,Öğr. Üyesi 25,,0
+Veri Madenciliği,ETMU7003,YL,1,T,3,Pazartesi,P5,Lisansüstü Sınıfı,Öğr. Üyesi 27,,0
+İleri Tahmin Yöntemleri,ETMU7007,YL,1,T,3,Pazartesi,P5,D-733,Öğr. Üyesi 25,,0
+İş Zekası,,YL,1,T,3,Pazartesi,P8,Lisansüstü Sınıfı,Öğr. Üyesi 10,,0
+Yönetimde Güncel Konular,ETMU7043,YL,1,T,3,Çarşamba,P2,D-733,Öğr. Üyesi 19,,0
+İleri Matematik Programlama,ETMU7044,YL,1,T,3,Çarşamba,P5,D-733,Öğr. Üyesi 21,,0
+Kombinatoryal Optimizasyon,,YL,1,T,3,Çarşamba,P8,Lisansüstü Sınıfı,Öğr. Üyesi 07,,0
+Yalın Anlayış ve Dijital Dönüşüm,ETMU7041,YL,1,T,3,Çarşamba,P8,TUSAŞ Lab,Öğr. Üyesi 13,,0

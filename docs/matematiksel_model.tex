@@ -1,0 +1,332 @@
+% =====================================================================
+%  İÜC Endüstri Mühendisliği — GÜZ Dönemi Ders Çizelgeleme Problemi
+%  Kısıt Programlama (CP-SAT) Matematiksel Modeli
+%  Derleme: xelatex matematiksel_model.tex
+% =====================================================================
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\usepackage{polyglossia}
+\setmainlanguage{turkish}
+
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=2.6cm]{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\definecolor{iucnavy}{RGB}{18,44,84}
+\definecolor{iucaccent}{RGB}{140,30,45}
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries\color{iucnavy}}{\thesection}{0.8em}{}
+\titleformat{\subsection}{\large\bfseries\color{iucnavy}}{\thesubsection}{0.7em}{}
+\usepackage[colorlinks=true,linkcolor=iucaccent,urlcolor=iucaccent]{hyperref}
+\usepackage{microtype}
+
+\newtheorem{proposition}{Önerme}
+\newtheorem{remark}{Not}
+\theoremstyle{definition}
+\newtheorem{definition}{Tanım}
+
+\newcommand{\SET}[1]{\mathcal{#1}}
+\newcommand{\st}{\quad\text{öyle ki}\quad}
+\DeclareMathOperator{\rank}{rank}
+
+\begin{document}
+
+% ------------------------------------------------------------------ başlık
+\begin{center}
+  {\color{iucnavy}\LARGE\bfseries Üniversite Ders Çizelgeleme Probleminin\\[2pt]
+  Kısıt Programlama Modeli}\\[8pt]
+  {\large Endüstri Mühendisliği Bölümü\\
+  Lisans, Yüksek Lisans ve Doktora Programlarının Bütünleşik Eniyilemesi}\\[6pt]
+  {\small\itshape Müfredat-tabanlı ders çizelgeleme (CB--CTT) ailesinin,
+  dinamik seçmeli eşleştirme ve çok-kaynaklı oda yönetimi ile genişletilmiş bir örneği}\\[10pt]
+  {\normalsize\bfseries Prof.\,Dr.\ Tarık KÜÇÜKDENİZ}\\[2pt]
+  {\small İstanbul Üniversitesi--Cerrahpaşa, Endüstri Mühendisliği Bölümü}\\[6pt]
+  \rule{0.6\textwidth}{0.6pt}
+\end{center}
+
+\section{Problem Tanımı}
+
+Bir eğitim döneminde; üç program düzeyine (dönemde açık lisans yarıyılları ---
+güzde 1., 3., 5., 7.; baharda 2., 4., 6., 8.--- ile yüksek lisans ve doktora) ait yaklaşık elli dersin, beş iş günü $\times$ on üç ders
+saatinden oluşan haftalık ızgaraya; derslik, laboratuvar, amfi ve öğretim üyesi
+kaynakları paylaşılarak, hiçbir öğrenci ve öğretim üyesi çakışması olmadan
+yerleştirilmesi istenmektedir. Fakülte tarafından saatleri dışarıdan sabitlenmiş
+ortak dersler (Matematik~I, Fizik~I, Genel Kimya, Programlamaya Giriş) hareket
+ettirilemez engeller olarak modele girer. Problem, literatürdeki
+\emph{Curriculum-Based Course Timetabling} (CB--CTT, ITC--2007 Track~3) sınıfının;
+\begin{itemize}[nosep]
+  \item seçmeli derslerin \emph{çözücü tarafından seçilen} eşleşmelerle aynı saate
+        bindirilebilmesi (dinamik eşleştirme),
+  \item ders bazında oda zorunlulukları, çift-oda rezervasyonu ve laboratuvar
+        kuralları,
+  \item her dönem için \emph{tam boş gün} garantisi
+\end{itemize}
+ile zenginleştirilmiş bir uzantısıdır. Model, Google OR-Tools \textsc{CP-SAT}
+çözücüsüyle eniyilenir ve elde edilen çizelge, modelden bağımsız bir doğrulayıcı
+tarafından tüm sert kısıtlara karşı yeniden denetlenir.
+
+\section{Kümeler ve İndisler}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}>{$}l<{$} p{0.78\textwidth}@{}}
+\toprule
+\SET{D}=\{1,\dots,5\} & iş günleri (Pazartesi \dots\ Cuma) \\
+\SET{P}=\{1,\dots,13\} & günlük ders saatleri (50 dakikalık periyotlar; $1\equiv$ 08.30) \\
+\SET{K} & açılacak dersler kümesi \\
+\SET{C} & \emph{bileşenler}: her dersin ayrık olarak çizelgelenen T (teori),
+          U (uygulama), L (laboratuvar) veya birleşik blokları; $c\in\SET{C}$,
+          süresi $\ell_c$ periyot \\
+\SET{R} & derslikler: lisans havuzu, lisansüstü havuzu, bilgisayar laboratuvarı
+          $r^{\mathrm{lab}}$ ve amfi $r^{\mathrm{amfi}}$ \\
+\SET{H} & öğretim elemanları (uygulama asistanları dâhil); $h(c)\in\SET{H}$
+          bileşenin yürütücüsü \\
+\SET{Q} & öğrenci dönemleri (kohortlar): dönemde açık lisans yarıyılları ile YL ve DR; $q(c)\in\SET{Q}$ \\
+\SET{G} & seçmeli ders grupları; $g\in\SET{G}$ için üye bileşen kümesi
+          $E_g\subseteq\SET{C}$, üye sayısı $n_g=|E_g|$ ve seçim zorunluluğu
+          $k_g$ (öğrenci $g$'den tam $k_g$ ders seçer) \\
+\SET{F} & dışarıdan sabitlenmiş ortak oturumlar; $f=(\delta_f,\pi_f,\ell_f,r_f,[h_f])$ \\
+\SET{B}\subset\SET{D}\times\SET{P} & kampüs geneli yasak dilimler
+          (ör.\ Cuma namazı: $(5,6)$) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Parametreler}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}>{$}l<{$} p{0.74\textwidth}@{}}
+\toprule
+R_c\subseteq\SET{R} & $c$ bileşeninin \emph{uygun oda kümesi}: düzey havuzu
+  (lisansüstü havuzu bilgisayar laboratuvarını da içerir; uygun lisans bilgisayar
+  dersleri havuza ek olarak laboratuvarı kullanabilir); laboratuvar dersleri için
+  $\{r^{\mathrm{lab}}\}$; yüksek mevcutlu dersler için $\{r^{\mathrm{amfi}}\}$;
+  çift-oda dersleri derslik havuzundan seçer (laboratuvar ayrıca rezerve edilir);
+  ders bazlı oda zorunlulukları (ör.\ D-731) ile kesişim \\
+A_h\subseteq\SET{D}\times\SET{P} & $h$ hocasının \emph{uygun olmadığı} dilimler
+  (gün/saat pencereleri) \\
+{[p_{\min},\,p_{\max}]} = [2,\,10] & bölüm derslerine açık günlük pencere
+  (08.30 dilimi ve 17.40 sonrası yasak) \\
+\kappa = 2 & aynı dönemin aynı anda yürüyebilecek en çok seçmeli ders sayısı \\
+w_{\bullet} & amaç fonksiyonu ağırlıkları (Tablo~\ref{tab:weights}) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Karar Değişkenleri}
+
+\begin{align}
+& d_c \in \SET{D}, \qquad
+  p_c \in \{\,p_{\min},\dots,p_{\max}-\ell_c+1\,\}
+  && \text{bileşenin günü ve başlangıç saati} \notag\\[2pt]
+& t_c = 13\,(d_c-1) + p_c, \qquad
+  I_c = [\,t_c,\; t_c+\ell_c\,)
+  && \text{düzleştirilmiş zaman ve aralık} \notag\\[2pt]
+& y_{c,r} \in \{0,1\}, \quad r\in R_c,
+  \qquad \textstyle\sum_{r\in R_c} y_{c,r} = 1
+  && \text{oda ataması} \notag\\[2pt]
+& s_{uv} \in \{0,1\}, \quad \{u,v\}\subseteq E_g
+  && \text{aynı-slot eşleşme göstergesi} \notag
+\end{align}
+
+\noindent Ayrıca doğrusallaştırma için türetilmiş göstergeler kullanılır:
+kohort--gün kullanım değişkenleri $u_{q,\delta}$, hoca--gün kullanım değişkenleri
+$v_{h,\delta}$ ve gün-içi kompaktlık büyüklükleri (ilk/son ders, meşguliyet).
+
+\section{Sert Kısıtlar}
+
+\subsection*{K1 --- Zaman Penceresi}
+Tanım gereği $p_c\ge p_{\min}$ ve $p_c+\ell_c-1\le p_{\max}$: hiçbir bölüm dersi
+08.30 diliminde başlayamaz, 17.35'ten sonra süremez ve gün sınırını aşamaz.
+Kampüs yasak dilimleri ile hoca uygunlukları başlangıç bölgesinden budanır:
+\begin{equation}
+\forall c,\;\forall(\delta,\pi)\in A_{h(c)}\cup\SET{B}:\qquad
+\neg\Bigl[\,d_c=\delta \;\wedge\; p_c \le \pi \le p_c+\ell_c-1\,\Bigr].
+\end{equation}
+
+\subsection*{K2 --- Oda Tek-Doluluk}
+Her oda her an en çok bir oturum barındırır; sabit ortak oturumlar ve dış
+rezervasyonlar da odalarını tüketir:
+\begin{equation}
+\forall r\in\SET{R}:\quad
+\textsc{NoOverlap}\Bigl(\{\,I_c : y_{c,r}=1\,\}\;\cup\;\{\,I_f : r_f=r\,\}\Bigr).
+\end{equation}
+\emph{Çift-oda dersleri} (ilk haftalar sınıf, sonrasında laboratuvar) hem seçilen
+dersliği hem laboratuvarı aynı anda rezerve eder: $c\in\text{Dual}$ için $I_c$,
+$r^{\mathrm{lab}}$'ın NoOverlap kümesine koşulsuz eklenir.
+
+\subsection*{K3 --- Öğretim Üyesi Tek-Doluluk ve Uygunluk}
+\begin{equation}
+\forall h\in\SET{H}:\quad
+\textsc{NoOverlap}\Bigl(\{\,I_c : h(c)=h\,\}\;\cup\;\{\,I_f : h_f=h\,\}\Bigr),
+\end{equation}
+sabitlenmiş ortak dersi olan hocanın (ör.\ programlama laboratuvarı) o saatleri
+de hesaba katılır. Uygunluk pencereleri K1'de işlenmiştir.
+
+\subsection*{K4 --- Öğrenci Çakışmasızlığı (dönem içi)}
+$Z_q$, $q$ kohortunun zorunlu bileşenleri; $S_q$ seçmelileri olsun.
+\begin{align}
+&\textsc{NoOverlap}(Z_q) && \text{zorunlular ikili ayrık,}\\
+&\forall e\in S_q:\;\; \textsc{NoOverlap}\bigl(Z_q\cup\{e\}\bigr)
+  && \text{her seçmeli, zorunlu iskeletle ayrık,}\\
+&\forall g\ne g' ,\; u\in E_g,\, v\in E_{g'}:\;\; I_u\cap I_v=\emptyset
+  && \text{farklı gruplardan dersler ayrık}
+\end{align}
+(son kural, öğrencinin her iki gruptan da ders aldığı 7.~yarıyıl F--G çiftini
+kapsar). Ayrıca sabit ortak oturumun bağlı olduğu kohortun \emph{tüm} bileşenleri
+o oturumla zaman-ayrıktır: $q(c)=q_f \Rightarrow I_c\cap I_f=\emptyset$.%
+\footnote{K4 lisans kohortları için kurulur; mevcut lisansüstü kohortlarda
+çizelgelenen zorunlu bileşen ve seçmeli grubu bulunmadığından bu kısıtlar boş
+sağlanır; lisansüstü seçmelileri yalnızca K6 ($\kappa=2$) ile sınırlıdır.}
+
+\subsection*{K5 --- Dinamik Aynı-Slot Eşleştirme}
+Aynı grubun herhangi iki dersi \emph{ya birebir aynı slotta ya tamamen ayrık}
+olabilir; kısmi örtüşme yasaktır. Eşleştirmeyi konfigürasyon değil,
+\emph{çözücü} seçer:
+\begin{align}
+s_{uv}=1 &\;\Longrightarrow\; d_u=d_v \,\wedge\, p_u=p_v, \\
+s_{uv}=0 &\;\Longrightarrow\; t_u+\ell_u\le t_v \;\vee\; t_v+\ell_v\le t_u,
+\qquad \{u,v\}\subseteq E_g,\; k_g\ge 2,\\
+&\sum_{\{u,v\}\subseteq E_g} s_{uv} \;\le\; \max\bigl(0,\; n_g-k_g\bigr)
+\qquad (k_g \ge 2). \label{eq:cap}
+\end{align}
+Seçim-1 gruplarında ($k_g=1$) üyeler serbestçe örtüşebilir; K6 kapasitesi yine
+geçerlidir.
+
+\begin{proposition}[Seçim Garantisi]\label{prop:selection}
+Eş uzunluklu üyeli bir $g$ grubunda \textup{(\ref{eq:cap})} ve K6 kapasitesi
+$\kappa=2$ altında, üyelerin başlangıç zamanlarına göre denklik sınıfları en az
+$k_g$ farklı slot oluşturur ve her sınıftan en çok bir ders seçen \emph{her}
+öğrenci, $k_g$ dersini ikili çakışmasız alır.
+\end{proposition}
+\begin{proof}[İspat taslağı]
+Kısmi örtüşme yasak olduğundan ``aynı slot'' ilişkisi, eş uzunluk altında bir
+denklik bağıntısıdır; $\kappa=2$ her sınıfın en çok iki üye içermesini sağlar.
+Böylece sınıf sayısı $n_g-\sum s_{uv}\ge n_g-(n_g-k_g)=k_g$'dir. Farklı
+sınıflardan dersler $s_{uv}=0$ gereği ayrık aralıklarda yattığından, sınıf
+başına en çok bir ders içeren her $k_g$-altküme ikili ayrıktır. \qedhere
+\end{proof}
+
+\subsection*{K6 --- Eşzamanlı Seçmeli Kapasitesi}
+Aynı kohortun seçmelileri için birim talepli kümülatif kısıt:
+\begin{equation}
+\forall q:\quad \textsc{Cumulative}\bigl(\{I_e : e\in S_q\},\;
+\mathbf{1},\; \kappa\bigr),\qquad \kappa=2 .
+\end{equation}
+
+\subsection*{K7 --- Yapısal Ders Kuralları}
+\begin{itemize}[nosep]
+\item \emph{Ardışık bloklarda tek oda}: Bir dersin laboratuvar dışı iki bileşeni
+  zamanda \emph{ardışık} ise (biri bittiği an diğeri başlıyorsa) aynı dersliği
+  kullanır; kesintisiz bir ders akışı oda değiştirmez. Ardışıklık reifiye bir
+  Boole ile algılanır ve oda eşitliğini koşullu tetikler:
+  $a_{uv}\Rightarrow y_{u,r}=y_{v,r}$. Ardışık olmayan bloklar (farklı gün veya
+  araya boşluk giren sabah/öğleden sonra blokları) farklı derslik kullanabilir.
+\item \emph{Tek blok}: İşaretli dersler tüm saatleriyle tek kesintisiz bileşen
+  olarak üretilir (ör.\ programlama dersi $T{+}L=4$ saat).
+\item \emph{Aynı gün}: Belirlenen ders çiftlerinin bileşenleri ortak gün alır:
+  $d_u=d_v$.
+\item \emph{Farklı gün}: Bölünmüş derslerin parçaları farklı günlere düşer:
+  $d_u\ne d_v$ (ör.\ tesis planlama $2{+}2$).
+\item \emph{Gün kısıtları}: Belirli dersler yapılandırmayla belirli günlere
+  sınırlanır ($d_c\in\SET{D}_c$; ör.\ üç lisans dersi $\to$ Salı); istenirse bir
+  kohortun tamamı da bir gün kümesine sınırlanabilir.
+\item \emph{Sabitlemeler}: Ders bazında gün/saat(/oda) pinleri $d_c,p_c,(y_{c,r})$
+  değerlerini eşitlikle bağlar; eşleşmeyen pin girdileri model kurulurken hata
+  üretir.
+\end{itemize}
+
+\subsection*{K8 --- Tam Boş Gün Garantisi}
+$u_{q,\delta}\in\{0,1\}$; $q$ kohortunun (zorunlu \emph{ve tüm} seçmeli
+bileşenleri ile o kohorta bağlı sabit ortak oturumları dâhil) $\delta$ gününü
+kullanıp kullanmadığını reifikasyonla izler; sabit oturum günlerinde
+$u_{q,\delta}=1$'e sabitlenir. Garanti:
+\begin{equation}
+\forall q\in\SET{Q}:\qquad \sum_{\delta\in\SET{D}} u_{q,\delta} \;\le\; 4 .
+\end{equation}
+Böylece her dönemin öğrencisi, seçmeli tercihinden bağımsız olarak haftada en az
+bir tam gün derssizdir.
+
+\section{Amaç Fonksiyonu}
+
+Sözlükbilimsel öncelikleri yaklaşıklayan ağırlıklı tek ölçüt en küçüklenir:
+\begin{equation}
+\min\;
+\underbrace{w_1\!\!\sum_{q,\delta} u_{q,\delta}}_{\text{boş gün}}
++\underbrace{w_2\!\!\sum_{h,\delta} v_{h,\delta}}_{\text{hoca-gün}}
++\underbrace{w_3\!\!\sum_{q,\;\delta\notin \Pi_q} u_{q,\delta}}_{\text{gün tercihi}}
++\underbrace{w_4\!\!\sum_{c} m_c}_{\text{Pzt.\ erken}}
++\underbrace{w_5\!\!\sum_{q,\delta} \gamma_{q,\delta}}_{\text{boşluk}}
++\underbrace{w_6\!\!\sum_{g}\sum_{uv} s_{uv}}_{\text{eşleşme}}
++\underbrace{w_7\!\!\sum_{c,r} \rho_r\, y_{c,r}}_{\text{oda tercihi}}
+\end{equation}
+Burada $v_{h,\delta}$ hoca--gün kullanımı (sabit oturum günleri dâhil);
+$\Pi_q$ kohortun tercih edilen gün kümesi (ör.\ L5 için Pzt--Çar);
+$m_c$, Pazartesi 09.25 başlangıcının göstergesi;
+$\gamma_{q,\delta}=\max\bigl(0,\ \text{süre}(q,\delta)-\text{meşguliyet}(q,\delta)\bigr)$
+temsilî öğrenci yüküyle hesaplanan gün-içi boşluk (negatif kırpma, meşru
+örtüşmelerin amaç mekanizmasınca yasaklanmamasını sağlar);
+$\rho_r$ düzeye özgü oda öncelik sırası (lisans: D-731 önce; lisansüstü:
+Lisansüstü Sınıfı $\succ$ D-724/D-733 $\succ$ TUSAŞ).%
+\footnote{Yapılandırmada ayrıca $w_{\mathrm{P1}}=25$ yedek ağırlığı tanımlıdır;
+K1'in sert 08.30 yasağı altında ilgili terim özdeş olarak sıfırdır ve yalnızca
+yasak kaldırılırsa etkinleşir; bu nedenle amaç ifadesinde gösterilmemiştir.}
+
+\begin{table}[h]
+\centering
+\caption{Ağırlık hiyerarşisi: üst katmanlar alt katmanlara pratikte baskındır
+(yaklaşık sözlükbilimsel sıralama).}\label{tab:weights}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}llr@{}}
+\toprule
+Katman & Ölçüt & Ağırlık \\
+\midrule
+Birincil & öğrenci boş günü ($w_1$) & 1000 \\
+Birincil & hoca gün yoğunlaştırma ($w_2$) & 500 \\
+İkincil & kohort gün tercihi ($w_3$) & 300 \\
+İkincil & Pazartesi 10.20 başlangıcı ($w_4$) & 150 \\
+Üçüncül & gün-içi öğrenci boşluğu ($w_5$) & 10 \\
+Kırılım & eşleşme cezası ($w_6$) & 5 \\
+Kırılım & oda önceliği ($w_7$) & 2 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{remark}
+Eşleşme cezası $w_6$ bilinçli olarak \emph{küçüktür}: seçmelileri üst üste
+bindirmek başlı başına bir hedef değildir; yalnızca daha üst katmanlarda gerçek
+bir kazanım (boş gün, gün tercihi, fizibilite) sağlıyorsa gerçekleşir.
+Kararsızlık durumunda dersler ayrık kalır ve öğrenci seçim özgürlüğü en geniş
+hâlinde korunur.
+\end{remark}
+
+\section{Çözüm Yöntemi ve Doğrulama}
+
+Model, aralık değişkenleri ile $\textsc{NoOverlap}$/$\textsc{Cumulative}$ küresel
+kısıtları üzerine kurulmuş bir \textsc{CP-SAT} örneğidir: $|\SET{C}|=48$ bileşen,
+$5\times 9$ etkin zaman ızgarası ve 11 oda üzerinde \emph{birincil} karar
+değişkenleri 96 gün/başlangıç tamsayısı ($d_c,p_c$), 150 oda-atama Boole'u
+($y_{c,r}$) ve 36 eşleşme Boole'undan ($s_{uv}$) oluşur. Reifikasyon ve amaç
+doğrusallaştırması ile birlikte tam model \textbf{2\,116 karar değişkeni}
+(1\,129 Boole, 987 tamsayı) ve \textbf{4\,815 kısıt} içerir; yalnız sert
+çekirdek 1\,918 değişken / 4\,539 kısıttır. Deterministik aramayla
+dakikalar içinde \emph{kanıtlı en iyi} (OPTIMAL) çözüm elde edilmektedir. Çözüm sonrası,
+modelden bağımsız bir denetleyici; oda/hoca çakışmaları, pencere ihlalleri,
+grup--slot yapısı (Önerme~\ref{prop:selection} koşulları dâhil), sabit oturum
+çakışmaları ve boş gün garantisini ham çizelge üzerinden yeniden hesaplayarak
+sıfır ihlal raporlar. Tüm veri girdileri (uygunluklar, gruplar, oda kuralları,
+ağırlıklar) koda dokunmadan yapılandırma dosyalarından yönetilir.
+
+\vspace{6pt}
+\begin{center}
+\rule{0.6\textwidth}{0.6pt}\\[4pt]
+{\small\itshape Bu belge, uygulamadaki modelin birebir matematiksel karşılığıdır;
+her kısıt ailesi kaynak kodda ayrı birim testleriyle korunmaktadır.}
+\end{center}
+
+\end{document}

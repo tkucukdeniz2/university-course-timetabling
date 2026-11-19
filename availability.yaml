@@ -1,0 +1,61 @@
+# Instructor availability: windows in which an instructor CANNOT teach (hard constraint).
+# The values below are synthetic. Format:
+#   "<instructor>":
+#     - {day: "<Pazartesi|Salı|Çarşamba|Perşembe|Cuma>", periods: [<1-based periods>]}
+# Periods: 1=08.30 2=09.25 3=10.20 4=11.15 5=12.10 6=13.05 7=14.00 8=14.55 9=15.50
+#          10=16.45 11=17.40 12=18.40 13=19.35.  An empty list means fully available.
+blocks:
+  Öğr. Üyesi 01: []
+  Öğr. Üyesi 04:
+  - {day: Pazartesi, periods: [9, 10, 11, 12, 13]}
+  - {day: Salı, periods: [9, 10, 11, 12, 13]}
+  - {day: Çarşamba, periods: [9, 10, 11, 12, 13]}
+  - {day: Perşembe, periods: [9, 10, 11, 12, 13]}
+  - {day: Cuma, periods: [9, 10, 11, 12, 13]}
+  Öğr. Üyesi 06:
+  - {day: Pazartesi, periods: [1, 2, 3, 4]}
+  - {day: Çarşamba, periods: [1, 2, 3, 4]}
+  Öğr. Üyesi 07:
+  - {day: Cuma, periods: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]}
+  Öğr. Üyesi 08:
+  - {day: Perşembe, periods: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]}
+  Öğr. Üyesi 09:
+  - {day: Pazartesi, periods: [1, 2, 3, 4]}
+  - {day: Salı, periods: [1, 2, 3, 4]}
+  Öğr. Üyesi 10: []
+  Öğr. Üyesi 11:
+  - {day: Pazartesi, periods: [9, 10, 11, 12, 13]}
+  - {day: Salı, periods: [9, 10, 11, 12, 13]}
+  - {day: Çarşamba, periods: [9, 10, 11, 12, 13]}
+  - {day: Perşembe, periods: [9, 10, 11, 12, 13]}
+  - {day: Cuma, periods: [9, 10, 11, 12, 13]}
+  Öğr. Üyesi 12: []
+  Öğr. Üyesi 13:
+  - {day: Pazartesi, periods: [1, 2, 3, 4]}
+  - {day: Perşembe, periods: [1, 2, 3, 4]}
+  Öğr. Üyesi 14: []
+  Öğr. Üyesi 15:
+  - {day: Pazartesi, periods: [1, 2, 3, 4]}
+  - {day: Cuma, periods: [1, 2, 3, 4]}
+  Öğr. Üyesi 16:
+  - {day: Pazartesi, periods: [9, 10, 11, 12, 13]}
+  - {day: Salı, periods: [9, 10, 11, 12, 13]}
+  - {day: Çarşamba, periods: [9, 10, 11, 12, 13]}
+  - {day: Perşembe, periods: [9, 10, 11, 12, 13]}
+  - {day: Cuma, periods: [9, 10, 11, 12, 13]}
+  Öğr. Üyesi 17: []
+  Öğr. Üyesi 19: []
+  Öğr. Üyesi 20:
+  - {day: Perşembe, periods: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]}
+  Öğr. Üyesi 21:
+  - {day: Çarşamba, periods: [1, 2, 3, 4]}
+  - {day: Perşembe, periods: [1, 2, 3, 4]}
+  Öğr. Üyesi 22: []
+  Öğr. Üyesi 23: []
+  Öğr. Üyesi 24: []
+  Öğr. Üyesi 25:
+  - {day: Çarşamba, periods: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]}
+  Öğr. Üyesi 26: []
+  Öğr. Üyesi 27:
+  - {day: Çarşamba, periods: [1, 2, 3, 4]}
+  - {day: Perşembe, periods: [1, 2, 3, 4]}

@@ -1,0 +1,136 @@
+# Example configuration (spring term, BAHAR).
+# Run:  python -m src.main --term BAHAR --config config_bahar.yaml \
+#           --availability availability_bahar.yaml
+room_priority:
+  lisans: [D-731, D-733, D-724]
+  yl: [Lisansüstü Sınıfı, D-724, D-733, TUSAŞ Lab]
+  dr: [D-724, D-733, Lisansüstü Sınıfı, TUSAŞ Lab]
+room_pools:
+  lisans: [D-724, D-731, D-733]
+  grad: [Lisansüstü Sınıfı, D-724, D-733, TUSAŞ Lab]
+lab_room: End.Müh. Bilg. Lab.
+amfi_room: Amfi
+max_parallel_electives: 2
+amfi_courses:
+- Operations Research II
+- Engineering Economics
+- Tedarik Zinciri Yönetimi
+amfi_assignments:
+  Operations Research II: [K-B01, K-B02]
+  Engineering Economics: [K-B01, K-B02]
+  Tedarik Zinciri Yönetimi: [K-B01, K-B02]
+room_windows:
+  K-B01:
+  - {day: Cuma, periods: [2, 3, 4, 5]}
+  - {day: Cuma, periods: [10, 11]}
+  K-B02:
+  - {day: Salı, periods: [4, 5, 6]}
+  - {day: Çarşamba, periods: [7, 8, 9]}
+  - {day: Perşembe, periods: [7, 8, 9, 10]}
+  - {day: Cuma, periods: [4, 5]}
+  - {day: Cuma, periods: [7, 8, 9, 10]}
+lab_courses: []
+lab_only_courses:
+- Database Management Systems
+- Yapay Zekaya Giriş
+- Project Management
+dual_room_courses: []
+single_block_courses:
+- Database Management Systems
+same_day_courses: []
+different_day_courses: []
+groups:
+  Zaman Serilerinin Analizi: [E, 3]
+  Endüstriyel Sosyoloji ve Psikoloji: [E, 3]
+  Yapay Zekaya Giriş: [E, 3]
+  Project Management: [E, 3]
+  Endüstri Mühendisliğinde Seçilmiş Konular I: [E, 3]
+  Öğrenen Algoritmalar: [E, 3]
+  Uluslararası Finans: [E, 3]
+  Workforce Planning: [E, 3]
+  Süreç Yönetimi: [H, 2]
+  Modern Üretim Sistemleri: [H, 2]
+  Parametrik Olmayan İstatistik Yöntemler: [H, 2]
+  Deney Tasarımı: [H, 2]
+  Hizmet Sistemleri Yönetimi: [H, 2]
+  Dijital İşletme ve ERP Sistemleri: [H, 2]
+  Arge ve İnovasyon Projelerinin Yönetimi: [J, 1]
+  Hizmet Pazarlaması: [J, 1]
+weights:
+  free_day: 1000
+  instructor_day: 500
+  pair_penalty: 5
+  student_gap: 10
+  avoid_first: 25
+  cohort_day_pref: 300
+  room_pref: 2
+  monday_late_start: 0
+blocked_slots:
+- {day: Cuma, periods: [6]}
+require_free_day: true
+forbid_first_period: true
+allow_first_courses: []
+latest_period: 10
+cohort_days: {}
+cohort_day_pref: {}
+course_rooms:
+  Technical English II: [D-731]
+  Üretim Yöntem ve Teknolojileri: [D-731]
+  İstatistik: [D-731]
+  Management and Organization: [D-731]
+  Introduction to Systems Analysis: [D-731]
+  Linear Algebra: [D-731]
+  Work Study and Human Factors: [D-731]
+course_days:
+  İstatistik: [Salı]
+  Zaman Serilerinin Analizi: [Salı]
+  Parametrik Olmayan İstatistik Yöntemler: [Salı]
+  Katagorik Veri Analizi Yöntem Ve Uygulamaları: [Perşembe]
+  Endüstriyel Sürdürülebilirlik: [Perşembe]
+  Hizmet Pazarlaması: [Pazartesi]
+course_windows:
+  Arge ve İnovasyon Projelerinin Yönetimi: {min: 4}
+  Karar Kuramı: {max: 5}
+  Çok Ölçütlü Karar Verme Yöntemleri: {max: 5}
+split_tu:
+- Öğr. Üyesi 08
+- Öğr. Üyesi 09
+instructor_overrides:
+  Hizmet Sistemleri Yönetimi: Öğr. Üyesi 26
+uygulama_assistants:
+  Operations Research II: OR II Asistanı
+hide_instructors:
+- Öğr. Üyesi 05
+- Öğr. Üyesi 26
+fixed_placements: []
+excluded_courses:
+- Workforce Planning
+- Differential Equations
+- Uygulamalı Girişimcilik
+default_pin_cohort: Lisans-2
+fixed_session_cohorts:
+  Diferansiyel: Lisans-4
+  Uygulamalı Girişimcilik: Lisans-8
+  İş Hukuku: Lisans-8
+  İş Sağlığı: Lisans-8
+fixed_session_groups:
+  Uygulamalı Girişimcilik: J
+  İş Hukuku: I
+  İş Sağlığı: I
+ctype_overrides: {}
+instructor_sheets:
+- Öğr. Üyesi 16
+- Öğr. Üyesi 24
+- Öğr. Üyesi 13
+- Öğr. Üyesi 10
+- Öğr. Üyesi 09
+- Öğr. Üyesi 15
+- Öğr. Üyesi 25
+- Öğr. Üyesi 12
+- Öğr. Üyesi 07
+- Öğr. Üyesi 21
+- Öğr. Üyesi 27
+- Öğr. Üyesi 19
+watermark: TASLAK
+unlock_evening: false
+en_medium: []

@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.idea/
+.DS_Store
+timetable.xlsx
+schedule.csv
+.pytest_cache/
+timetable_v*.xlsx
+schedule_v*.csv
+timetable kopyas*.xlsx
